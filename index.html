@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#F5F5EB">
   <meta name="description" content="Compre online, fale com a BRAD e encontre nossa loja em Santo André.">
-  <title>BRAD Closet | Links</title>
+  <title>Brad Closet - Links</title>
   <style>
     :root {
       color-scheme: light;
@@ -536,31 +536,11 @@
       const offer = document.querySelector("#first-order-offer");
       if (typeof offer.showModal !== "function") return;
 
-      const storageKey = "brad-first-order-offer-seen";
       const copyButton = offer.querySelector(".coupon-copy");
       const copyLabel = copyButton.querySelector("span");
       const coupon = offer.querySelector(".coupon-code");
       const status = offer.querySelector(".coupon-status");
       const confetti = offer.querySelector(".coupon-confetti");
-      let seenInPage = false;
-
-      function hasSeenOffer() {
-        if (seenInPage) return true;
-        try {
-          return localStorage.getItem(storageKey) === "1";
-        } catch {
-          return false;
-        }
-      }
-
-      function markOfferSeen() {
-        seenInPage = true;
-        try {
-          localStorage.setItem(storageKey, "1");
-        } catch {
-          // The in-page flag still handles repeat clicks when storage is blocked.
-        }
-      }
 
       function burstConfetti() {
         if (matchMedia("(prefers-reduced-motion: reduce)").matches ||
@@ -594,10 +574,9 @@
 
       shopLink.addEventListener("click", (event) => {
         if (event.defaultPrevented || event.button !== 0 || event.metaKey ||
-            event.ctrlKey || event.shiftKey || event.altKey || hasSeenOffer()) return;
+            event.ctrlKey || event.shiftKey || event.altKey) return;
         offer.showModal();
         event.preventDefault();
-        markOfferSeen();
         burstConfetti();
       });
 
